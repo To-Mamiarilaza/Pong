@@ -7,7 +7,7 @@ int main()
 {
     cout << "Starting the game" << endl;
 
-    const int screen_width = 800;
+    const int screen_width = 1000;
     const int screen_height = 600;
 
     InitWindow(screen_width, screen_height, "Pong Game !");
@@ -16,6 +16,12 @@ int main()
     while (WindowShouldClose() == false)
     {
         BeginDrawing();
+
+        // Drawing
+        DrawLine(screen_width / 2, 0, screen_width / 2, screen_height, WHITE);
+        DrawCircle(screen_width / 2, screen_height / 2, 20, WHITE);
+        DrawRectangle(10, screen_height / 2 - 60, 25, 120, WHITE);
+        DrawRectangle(screen_width - 35, screen_height / 2 - 60, 25, 120, WHITE);
 
         EndDrawing();
     }
