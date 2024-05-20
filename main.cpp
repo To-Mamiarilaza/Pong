@@ -3,6 +3,9 @@
 
 using namespace std;
 
+int playerScore = 0;
+int cpuScore = 0;
+
 class Ball
 {
 public:
@@ -22,9 +25,28 @@ public:
 
         if (y + radius >= GetScreenHeight() || y <= 0)
             speedY *= -1;
-        if (x + radius >= GetScreenWidth() || x <= 0)
-            speedX *= -1;
+
+        if (x + radius >= GetScreenWidth()) {
+            cpuScore++;
+            ResetBall(); 
+        }
+
+        if (x <= 0) {
+            playerScore++;
+            ResetBall();
+        }
     }
+
+    void ResetBall()
+    {
+        x = GetScreenWidth() / 2;
+        y = GetScreenHeight() / 2;
+
+        int speedChoices[2] = {-1, 1};
+        speedX *= speedChoices[GetRandomValue(0, 1)];    
+        speedY *= speedChoices[GetRandomValue(0, 1)];    
+    }
+
 };
 
 class Paddle
@@ -133,6 +155,8 @@ int main()
         // Drawing
         ClearBackground(BLACK);
         DrawLine(screenWidth / 2, 0, screenWidth / 2, screenHeight, WHITE);
+        DrawText(TextFormat("%i", cpuScore), screenWidth / 4 - 20, 20, 80, WHITE);
+        DrawText(TextFormat("%i", playerScore), 3 * screenWidth / 4 - 20, 20, 80, WHITE);
 
         ball.Draw();
         player.Draw();
