@@ -3,25 +3,53 @@
 
 using namespace std;
 
+class Ball {
+    public:
+    float x, y;
+    int speedX, speedY;
+    int radius;
+
+    void Draw() {
+        DrawCircle(x, y, radius, WHITE);
+    }
+
+    void Update() {
+        x += speedX;
+        y += speedY;
+    }
+};
+
 int main()
 {
     cout << "Starting the game" << endl;
 
-    const int screen_width = 1000;
-    const int screen_height = 600;
+    const int screenWidth = 1000;
+    const int screenHeight = 600;
 
-    InitWindow(screen_width, screen_height, "Pong Game !");
+    InitWindow(screenWidth, screenHeight, "Pong Game !");
     SetTargetFPS(60);
+
+    // Init the ball
+    Ball ball;
+    ball.radius = 20;
+    ball.x = screenWidth / 2;
+    ball.y = screenHeight / 2;
+    ball.speedX = 7;
+    ball.speedY = 7;
 
     while (WindowShouldClose() == false)
     {
         BeginDrawing();
 
+        // Updating
+        ball.Update();
+
         // Drawing
-        DrawLine(screen_width / 2, 0, screen_width / 2, screen_height, WHITE);
-        DrawCircle(screen_width / 2, screen_height / 2, 20, WHITE);
-        DrawRectangle(10, screen_height / 2 - 60, 25, 120, WHITE);
-        DrawRectangle(screen_width - 35, screen_height / 2 - 60, 25, 120, WHITE);
+        ClearBackground(BLACK);
+        DrawLine(screenWidth / 2, 0, screenWidth / 2, screenHeight, WHITE);
+        ball.Draw();
+        DrawRectangle(10, screenHeight / 2 - 60, 25, 120, WHITE);
+        DrawRectangle(screenWidth - 35, screenHeight / 2 - 60, 25, 120, WHITE);
 
         EndDrawing();
     }
